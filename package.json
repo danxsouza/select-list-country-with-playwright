@@ -1,0 +1,28 @@
+{
+  "name": "select-list-country-with-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test-ui": "npx playwright test --ui --headed",
+    "test-debug": "npx playwright test --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danxsouza/select-list-country-with-playwright.git"
+  },
+  "author": "Danilo Batista de Souza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danxsouza/select-list-country-with-playwright/issues"
+  },
+  "homepage": "https://github.com/danxsouza/select-list-country-with-playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.45.3",
+    "@types/node": "^22.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
