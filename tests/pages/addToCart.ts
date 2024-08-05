@@ -8,6 +8,7 @@ export class AddToCartPage {
     readonly cartButton: Locator;
     readonly listOfProducts: Locator;
     readonly checkoutButton: Locator;
+    readonly selectCountry: Locator;
 
 
     constructor(page: Page) {
@@ -17,6 +18,7 @@ export class AddToCartPage {
         this.cartButton = page.locator('[routerlink*="cart"]');
         this.listOfProducts = page.locator('div li');
         this.checkoutButton = page.locator('text=Checkout');
+        this.selectCountry = page.locator('[placeholder="Select Country"]');
     }
 
     async addToCart() {
@@ -26,15 +28,28 @@ export class AddToCartPage {
         const count: any = await this.addToCartButton.count();
         for (let i = 0; i < count; i++) {
             if (await this.addToCartButton.nth(i).locator('b').textContent() === productName) {
-                    await this.addToCartButton.nth(i).locator("text= Add To Cart").click();
-                    break;
+                await this.addToCartButton.nth(i).locator("text= Add To Cart").click();
+                break;
             }
         }
         await this.cartButton.click();
-        await this.listOfProducts.first().waitFor({ state: 'visible' });
+        await this.listOfProducts.first().waitFor({state: 'visible'});
         const bool = await this.page.locator('h3:has-text("ZARA COAT 3")').isVisible();
         expect(bool).toBeTruthy();
         await this.checkoutButton.click();
 
+        await this.selectCountry.pressSequentially('Bra');
+
+        const dropdown = this.page.locator('.ta-results');
+        await dropdown.waitFor({state: 'visible'});
+
+        const optionsCount = await dropdown.locator("button").count();
+        for (let i = 0; i < optionsCount; ++i) {
+            const text = await dropdown.locator("button").nth(i).textContent();
+            if (text === " Brazil") {
+                await dropdown.locator("button").nth(i).click();
+                break;
+            }
+        }
     }
 }
